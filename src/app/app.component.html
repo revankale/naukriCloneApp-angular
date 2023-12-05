@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top">
+  <div class="container">
+    <a class="navbar-brand">
+      <img src="assets/images/naukri_Logo.png" alt="..." class="d-inline-block align-text-top">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item ms-4 me-3">
+          <a class="nav-link active" aria-current="page" data-bs-toggle="collapse"
+            data-bs-target=".navbar-collapse.show" routerLink="/jobs">Jobs</a>
+        </li>
+        <li class="nav-item me-3" *ngIf="userInfo.userRole == 'Employer' && isLoggedIn">
+          <a class="nav-link" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Companies</a>
+        </li>
+        <li class="nav-item me-3" *ngIf="userInfo.userRole == 'Employer' && isLoggedIn">
+          <a class="nav-link" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"
+            routerLink="/new-job">Create New Job</a>
+        </li>
+        <li class="nav-item me-3" *ngIf="userInfo.userRole == 'Employer' && isLoggedIn">
+          <a class="nav-link" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"
+            routerLink="/job-listing">Job Listing</a>
+        </li>
+      </ul>
+      <form class="d-flex userLogin" *ngIf="!isLoggedIn">
+        <button class="btn loginBtn me-2" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"
+          (click)="onLogin()">Login</button>
+        <button class="btn round-button text-white fw-bold" data-bs-toggle="collapse"
+          data-bs-target=".navbar-collapse.show" style="background-color: #f05537;"
+          (click)="onRegister()">Register</button>
+      </form>
+      <form class="d-flex userInfo" *ngIf="isLoggedIn">
+        <button class="btn userName me-2">{{userInfo.userName}}</button>
+        <button class="btn text-white fw-bold" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"
+          style="background-color: #d82b2b;" (click)="onLogOut()">LogOut</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle text-warning"
+  [breakpoints]="{'960px': '75vw', '640px': '90vw'}" [style]="{width: '30vw', height: '30w'}"></p-confirmDialog>
+
+<app-loader></app-loader>
